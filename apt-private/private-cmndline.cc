@@ -178,7 +178,7 @@ static bool addArgumentsAPTHelper(std::vector<CommandLine::Args> &Args, char con
 									/*}}}*/
 static bool addArgumentsAPTGet(std::vector<CommandLine::Args> &Args, char const * const Cmd)/*{{{*/
 {
-   if (CmdMatches("install", "reinstall", "remove", "purge", "upgrade", "dist-upgrade",
+   if (CmdMatches("install", "reinstall", "remove", "purge", "mini-upgrade", "upgrade", "dist-upgrade",
 	    "dselect-upgrade", "autoremove", "autopurge", "full-upgrade"))
    {
       addArg(0, "show-progress", "DpkgPM::Progress", 0);
@@ -191,7 +191,7 @@ static bool addArgumentsAPTGet(std::vector<CommandLine::Args> &Args, char const 
       addArg(0, "solver", "APT::Solver", CommandLine::HasArg);
       addArg(0, "planner", "APT::Planner", CommandLine::HasArg);
       addArg('U', "update", "APT::Update", 0);
-      if (CmdMatches("upgrade"))
+      if (CmdMatches("mini-upgrade"))
       {
          _error->Warning(_("Please use `apt dist-upgrade' to upgrade your system. Using `apt upgrade' may result in incomplete upgrades."));
          addArg(0, "new-pkgs", "APT::Get::Upgrade-Allow-New",
@@ -250,7 +250,7 @@ static bool addArgumentsAPTGet(std::vector<CommandLine::Args> &Args, char const 
    else if (CmdMatches("moo"))
       addArg(0, "color", "APT::Moo::Color", 0);
 
-   if (CmdMatches("install", "reinstall", "remove", "purge", "upgrade", "dist-upgrade",
+   if (CmdMatches("install", "reinstall", "remove", "purge", "mini-upgrade", "upgrade", "dist-upgrade",
 	    "dselect-upgrade", "autoremove", "auto-remove", "autopurge", "check",
 	    "clean", "autoclean", "auto-clean", "distclean", "dist-clean",
 	    "build-dep", "satisfy", "full-upgrade", "source"))
@@ -510,7 +510,7 @@ static void BinarySpecificConfiguration(char const * const Binary)	/*{{{*/
 static void BinaryCommandSpecificConfiguration(char const * const Binary, char const * const Cmd)/*{{{*/
 {
    std::string const binary = flNotDir(Binary);
-   if ((binary == "apt" || binary == "apt-get") && CmdMatches("upgrade", "dist-upgrade", "full-upgrade"))
+   if ((binary == "apt" || binary == "apt-get") && CmdMatches("upgrade", "mini-upgrade", "dist-upgrade", "full-upgrade"))
    {
       //FIXME: the option is documented to apply only for install/remove, so
       // we force it false for configuration files where users can be confused if

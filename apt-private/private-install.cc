@@ -843,7 +843,7 @@ bool DoCacheManipulationFromCommandLine(CommandLine &CmdL, std::vector<PseudoPkg
       {
 	 // Call the scored problem resolver
 	 OpTextProgress Progress(*_config);
-	 bool const distUpgradeMode = strcmp(CmdL.FileList[0], "dist-upgrade") == 0 || strcmp(CmdL.FileList[0], "full-upgrade") == 0;
+	 bool const distUpgradeMode = strcmp(CmdL.FileList[0], "dist-upgrade") == 0 || strcmp(CmdL.FileList[0], "full-upgrade") == 0 || strcmp(CmdL.FileList[0], "upgrade") == 0;
 
 	 if (distUpgradeMode && _config->Find("Binary") == "apt")
 	    _config->CndSet("APT::Get::AutomaticRemove::Kernels", _config->FindB("APT::Get::AutomaticRemove", true));
